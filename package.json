@@ -1,7 +1,7 @@
 {
   "name": "rescript-auth0-react",
   "version": "0.1.0",
-  "description": "rescript bindings for auth0' JS client",
+  "description": "rescript bindings for auth0's react library",
   "main": "index.js",
   "scripts": {
     "start": "rescript build -w",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ashton/rescript-auth0-client.git"
+    "url": "https://github.com/ashton/rescript-auth0-react.git"
   },
   "keywords": [
     "rescript",
@@ -23,11 +23,11 @@
     "login"
   ],
   "bugs": {
-    "url": "https://github.com/ashton/rescript-auth0-client/issues"
+    "url": "https://github.com/ashton/rescript-auth0-react/issues"
   },
   "author": "Matheus Ashton <matheusashton@gmail.com>",
   "license": "GPL-3.0-or-later",
-  "homepage": "https://github.com/ashton/rescript-auth0-client#readme",
+  "homepage": "https://github.com/ashton/rescript-auth0-react#readme",
   "dependencies": {
     "@auth0/auth0-react": "^1.2.3",
     "@rescript/core": "0.3.1",
