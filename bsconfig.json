@@ -1,0 +1,19 @@
+{
+  "name": "rescript-auth0-react",
+  "package-specs": {
+    "module": "es6",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "sources": [
+    {
+      "dir": "./src",
+      "subdirs": false
+    }
+  ],
+  "bs-dependencies": ["@rescript/react"],
+  "bsc-flags": ["-bs-no-version-header"],
+  "warnings": {
+    "error": true
+  }
+}
