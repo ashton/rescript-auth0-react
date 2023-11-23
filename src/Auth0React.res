@@ -43,7 +43,7 @@ module State = {
   @get external isLoading: t<'user> => bool = "isLoading"
   @get external isAuthenticated: t<'user> => bool = "isAuthenticated"
   @get external error: t<'user> => option<Js.Exn.t> = "error"
-  @get external user: t<'user> => 'user = "user"
+  @get external user: t<'user> => option<'user> = "user"
 }
 
 module ContextProvider = {
@@ -54,6 +54,62 @@ module ContextProvider = {
     ~children: React.element,
     ~authorizationParams: Login.authParams=?,
   ) => React.element = "Auth0Provider"
+}
+
+module type TokenModule = {
+  @deriving(abstract)
+  type getAccessTokenOptions = {
+    @optional audience: string,
+    @optional scope: string,
+  }
+
+  let getAccessToken: (t<'user>, ~options: getAccessTokenOptions=?, unit) => promise<string>
+
+  let getAccessTokenWithPopup: (
+    t<'user>,
+    ~options: getAccessTokenOptions=?,
+    unit,
+  ) => promise<string>
+}
+
+module Token: TokenModule = {
+  @deriving(abstract)
+  type getAccessTokenOptions = {
+    @optional audience: string,
+    @optional scope: string,
+  }
+
+  type authorizationParamsOptions = {authorizationParams: getAccessTokenOptions}
+
+  @send
+  external _getAccessToken: (
+    t<'user>,
+    ~options: authorizationParamsOptions=?,
+    unit,
+  ) => promise<string> = "getAccessTokenSilently"
+
+  @send
+  external _getAccessTokenPopup: (
+    t<'user>,
+    ~options: authorizationParamsOptions=?,
+    unit,
+  ) => promise<string> = "getAccessTokenWithPopup"
+
+  let getAccessToken = (auth0, ~options: option<getAccessTokenOptions>=?, ()): promise<string> => {
+    switch options {
+    | Some(opts) => _getAccessToken(auth0, ~options={authorizationParams: opts}, ())
+    | None => _getAccessToken(auth0, ())
+    }
+  }
+
+  let getAccessTokenWithPopup = (auth0, ~options: option<getAccessTokenOptions>=?, ()): promise<
+    string,
+  > => {
+    switch options {
+    | Some(opts) => _getAccessTokenPopup(auth0, ~options={authorizationParams: opts}, ())
+    | None => _getAccessToken(auth0, ())
+    }
+  }
 }
 
 @module("@auth0/auth0-react") external useAuth0: unit => t<'user> = "useAuth0"
