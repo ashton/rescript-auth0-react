@@ -61,6 +61,7 @@ module type TokenModule = {
   type getAccessTokenOptions = {
     @optional audience: string,
     @optional scope: string,
+    @as("redirectUri") redirect_uri: string, 
   }
 
   let getAccessToken: (t<'user>, ~options: getAccessTokenOptions=?, unit) => promise<string>
@@ -77,6 +78,8 @@ module Token: TokenModule = {
   type getAccessTokenOptions = {
     @optional audience: string,
     @optional scope: string,
+    // optional but required, check: https://community.auth0.com/t/auth0-app-id-doesnt-link-with-the-android-application/67288/8
+    @as("redirectUri") redirect_uri: string, 
   }
 
   type authorizationParamsOptions = {authorizationParams: getAccessTokenOptions}
