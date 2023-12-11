@@ -1,6 +1,6 @@
 {
   "name": "rescript-auth0-react",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "rescript bindings for auth0's react library",
   "main": "index.js",
   "scripts": {
